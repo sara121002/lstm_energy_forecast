@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
+.venv/
+.env
+.env.*
+*.egg-info/
+dist/
+build/
+runs/
+checkpoints/
+*.log
+.ipynb_checkpoints/
+.cache/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Data
+data/raw/
+data/interim/
+data/external/
+data/tmp/

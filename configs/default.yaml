@@ -1,0 +1,21 @@
+# Default training configuration
+seed: 42
+time_col: timestamp
+target_col: load
+
+lookback: 48    # input window (hours)
+horizon: 24     # forecast steps (hours)
+
+batch_size: 64
+epochs: 10
+lr: 1e-3
+hidden_size: 64
+num_layers: 1
+dropout: 0.1
+bidirectional: false
+
+val_ratio: 0.15
+test_ratio: 0.15
+
+# Optional extra feature columns (comma-separated at CLI or list here)
+feature_cols: []  # e.g., ["temp","wind"]
