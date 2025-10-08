@@ -49,7 +49,7 @@ def main():
     last_window = Xs[-lookback:]  # (T, F)
 
     with torch.no_grad():
-        yhat = model(torch.tensor(last_window).unsqueeze(0))  # (1, horizon)
+        yhat = model(torch.tensor(last_window, dtype=torch.float32).unsqueeze(0))  # (1, horizon)
     yhat = yhat.numpy()[0]
 
     # Denormalize
