@@ -79,6 +79,25 @@ You can add optional feature columns (e.g., `temp`, `wind`); they will be scaled
 - We save `config.json`, scalers, and weights under `runs/<exp>/`.
 - Set `--seed` for deterministic behavior (to the extent possible).
 
----
+## Versatile Forecasting Pipeline
 
-Made for learning: clear code, small surface area, and simple commands.
+This LSTM pipeline is not limited to energy forecasting — it can handle any time-series prediction task with minimal changes.
+By simply changing the --target argument and providing a suitable CSV, the same code can forecast:
+
+Temperature, humidity, or wind speed (weather forecasting)
+
+Energy load or generation (power systems)
+
+Sensor signals or industrial trends 
+
+```bash
+python src/train.py --data data/weather_sample_120d_hourly.csv \
+  --time-col timestamp \
+  --target temp \
+  --features humidity,wind_speed,pressure,precip \
+  --lookback 72 --horizon 24 \
+  --epochs 10 --batch-size 64 --out-dir runs/weather_temp
+```
+With this small change in the target column, the pipeline becomes a 24-hour weather predictor instead of an energy model — demonstrating its flexibility for any continuous time-series domain.
+
+
