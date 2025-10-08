@@ -122,3 +122,33 @@ Blue line → the last 72 hours of actual temperature data
 Orange line (or dots) → the next 24 hours of LSTM forecasts
 
 This gives a quick visual sense of how well the model captures short-term trends and daily cycles.
+
+## 🔍 Feature Importance (Ablation Study)
+
+To understand which input variables contribute most to forecast accuracy, several models were trained with different feature combinations.
+Each run used the same LSTM architecture and parameters — only the input features changed.
+Result Summary:
+| Model               | MAE_all | RMSE_all | MAPE_all_% |
+| ------------------- | ------- | -------- | ---------- |
+| temp_only           | 0.719   | 0.896    | 15.47%     |
+| temp_hum_wind       | 0.721   | 0.901    | 15.73%     |
+| temp_hum_wind_press | 0.718   | 0.899    | 15.41%     |
+| all_features        | 0.723   | 0.902    | 15.50%     |
+
+Interpretation:
+The model achieves nearly identical accuracy across all feature combinations.
+This means that for short-term (24-hour) temperature forecasting, past temperature alone already contains enough information.
+Adding humidity, wind, or pressure provides little additional benefit on this dataset — likely because the synthetic data has strong temporal patterns already captured by temperature itself.
+
+You can reproduce this experiment with:
+```bash
+python src/ablation.py --data data/weather_sample_120d_hourly.csv \
+  --time-col timestamp --target temp \
+  --lookback 72 --horizon 24 --epochs 8 --batch-size 64 \
+  --out-base runs/ablation_weather
+```
+
+The results are saved as:
+```bash
+runs/ablation_weather/ablation_report.csv
+```
