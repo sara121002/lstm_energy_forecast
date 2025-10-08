@@ -152,3 +152,15 @@ The results are saved as:
 ```bash
 runs/ablation_weather/ablation_report.csv
 ```
+
+## 🔁 Backtesting (Rolling Evaluation)
+To test stability over time, a 5-fold rolling backtest was performed (train on past → predict next 24 h).
+
+| Metric              | Mean    | Std  |
+| ------------------- | ------- | ---- |
+| **MAE (t+1)**       | 0.35 °C | 0.21 |
+| **MAE (all 24 h)**  | 0.75 °C | 0.18 |
+| **RMSE (all 24 h)** | 0.94 °C | 0.19 |
+
+Result: The model delivers consistent short-term forecasts (~0.35 °C next-hour error, ~0.75 °C daily horizon), showing strong temporal generalization across multiple time windows.
+
