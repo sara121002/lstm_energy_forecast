@@ -79,7 +79,7 @@ You can add optional feature columns (e.g., `temp`, `wind`); they will be scaled
 - We save `config.json`, scalers, and weights under `runs/<exp>/`.
 - Set `--seed` for deterministic behavior (to the extent possible).
 
-## Versatile Forecasting Pipeline
+## 🌍 Versatile Forecasting Pipeline
 
 This LSTM pipeline is not limited to energy forecasting — it can handle any time-series prediction task with minimal changes.
 By simply changing the --target argument and providing a suitable CSV, the same code can forecast:
@@ -100,4 +100,25 @@ python src/train.py --data data/weather_sample_120d_hourly.csv \
 ```
 With this small change in the target column, the pipeline becomes a 24-hour weather predictor instead of an energy model — demonstrating its flexibility for any continuous time-series domain.
 
+## 📊 Visualization
+After training, you can easily visualize your model’s performance — plotting the last observed values together with the next predicted horizon.
 
+Use the visualization script:
+```bash
+python src/plot_forecast.py --run-dir runs/weather_temp --data data/weather_sample_120d_hourly.csv --history 72 --save runs/weather_temp/forecast_plot.png
+```
+--run-dir → folder where the trained model and config are stored (e.g. runs/weather_temp)
+
+--data → dataset used during training
+
+--history → number of past hours to display before the forecast (default = 72)
+
+--save → optional path to save the figure as PNG
+
+The output graph shows:
+
+Blue line → the last 72 hours of actual temperature data
+
+Orange line (or dots) → the next 24 hours of LSTM forecasts
+
+This gives a quick visual sense of how well the model captures short-term trends and daily cycles.
