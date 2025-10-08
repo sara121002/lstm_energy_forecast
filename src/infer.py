@@ -55,8 +55,11 @@ def main():
     # Denormalize
     yhat_denorm = yhat * ysc['y_scale'] + ysc['y_mean']
 
-    print("Forecast (next {} steps):".format(cfg['horizon']))
-    print(yhat_denorm.tolist())
+    print(f"Forecast (next {cfg['horizon']} hours):")
+    print("-" * 40)
+    for i, val in enumerate(yhat_denorm, start=1):
+        print(f"Hour {i:02d} → {val:.2f} °C")
+
 
 if __name__ == '__main__':
     main()
